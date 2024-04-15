@@ -19,7 +19,7 @@
                         class="{{ Route::currentRouteName() == 'opening-hours' ? 'active' : '' }}">Opening Hours</a>
                 </h3>
                 <h3><a href="{{ route('ticket-prices') }}"
-                        class="{{ Route::currentRouteName() == 'ticket-prices' ? 'active' : '' }}">Tickets</a>
+                        class="{{ Route::currentRouteName() == 'ticket-prices' ? 'active' : '' }}">Ticket Prices</a>
                 </h3>
                 <h3><a href="{{ route('contact') }}"
                         class="{{ Route::currentRouteName() == 'contact' ? 'active' : '' }}">Contact</a></h3>
