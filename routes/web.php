@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccommodationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AttractionsController;
@@ -14,3 +15,5 @@ Route::get('/ticket-prices', [TicketPricesController::class, 'index'])->name('ti
 Route::post('/place-order', [TicketPricesController::class, 'placeOrder'])->name('placeOrder');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/accommodations', [AccommodationController::class, 'index'])->name('accommodations');
+Route::post('/place-accommodation-order', [AccommodationController::class, 'placeAccommodationOrder'])->name('placeAccommodationOrder');

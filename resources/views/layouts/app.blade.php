@@ -23,6 +23,8 @@
                 </h3>
                 <h3><a href="{{ route('contact') }}"
                         class="{{ Route::currentRouteName() == 'contact' ? 'active' : '' }}">Contact</a></h3>
+                <h3><a href="{{ route('accommodations') }}"
+                        class="{{ Route::currentRouteName() == 'accommodations' ? 'active' : '' }}">Accommodations</a></h3>
             </div>
             <div></div>
         </div>
