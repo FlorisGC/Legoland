@@ -271,3 +271,59 @@ body {
         background-color: #0056b3;
     }
 }
+
+.accommodations {
+    width: fit-content;
+    background-color: white;
+    padding: 3vh;
+    margin-left: 11vw;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    .alert {
+        margin: 20px;
+        padding: 10px;
+        text-align: center;
+        border: 1px solid;
+        border-radius: 3px;
+    }
+
+    .accommodation-item {
+        flex-basis: 100%;
+        margin-bottom: 100px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+        img {
+            height: 40vh;
+            width: 30vw;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            input,
+            button {
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+
+            button {
+                background-color: #4caf50; /* Green */
+                color: white;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #45a049;
+            }
+        }
+    }
+}
