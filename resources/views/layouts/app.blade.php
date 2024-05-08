@@ -25,6 +25,13 @@
                         class="{{ Route::currentRouteName() == 'contact' ? 'active' : '' }}">Contact</a></h3>
                 <h3><a href="{{ route('accommodations') }}"
                         class="{{ Route::currentRouteName() == 'accommodations' ? 'active' : '' }}">Accommodations</a></h3>
+                        @if(Auth::check())
+                    <h3><a href="{{ route('dashboard') }}"
+                            class="{{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">Dashboard</a></h3>
+                @else
+                    <h3><a href="{{ route('login') }}"
+                            class="{{ Route::currentRouteName() == 'login' ? 'active' : '' }}">Login</a></h3>
+                @endif
             </div>
             <div></div>
         </div>
