@@ -12,6 +12,15 @@
 
     <div class="register-user">
         <h3>Register a new user</h3>
+        @if (session('success'))
+            <div class="success-container">
+                <ul>
+                    <li>
+                        {{ session('success') }}
+                    </li>
+                </ul>
+            </div>
+        @endif
         @if ($errors->any())
             <div class="error-container">
                 <ul>

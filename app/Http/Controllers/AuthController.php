@@ -57,6 +57,8 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
+        $request->session()->flash('success', 'User created');
+
         return redirect('/dashboard');
     }
 

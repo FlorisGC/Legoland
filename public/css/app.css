@@ -430,6 +430,13 @@ body::-webkit-scrollbar {
         }
     }
 
+    .success-container {
+        padding-bottom: 1vh;
+        li {
+            color: green;
+        }
+    }
+
     div {
         margin-bottom: 10px;
     }
