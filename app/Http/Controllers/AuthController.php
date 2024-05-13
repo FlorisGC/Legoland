@@ -40,11 +40,16 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        $messages = [
+            'password.min' => 'Password must be at least 8 chars long',
+            'password.confirmed' => 'Password confirmation does not match',
+        ];
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-        ]);
+        ], $messages);
 
         $user = User::create([
             'name' => $request->name,

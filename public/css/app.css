@@ -423,6 +423,13 @@ body::-webkit-scrollbar {
         margin-bottom: 20px;
     }
 
+    .error-container {
+        padding-bottom: 1vh;
+        li {
+            color: red;
+        }
+    }
+
     div {
         margin-bottom: 10px;
     }

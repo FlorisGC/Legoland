@@ -12,6 +12,15 @@
 
     <div class="register-user">
         <h3>Register a new user</h3>
+        @if ($errors->any())
+            <div class="error-container">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="POST" action="{{ route('dashboard.register') }}">
             @csrf
 
