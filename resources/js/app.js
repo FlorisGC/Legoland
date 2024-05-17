@@ -3,16 +3,26 @@
 // app.js
 
 // Function to open modal
-function openModal(element) {
-    var title = element.alt;
-    var modal = document.querySelector('[data-title="' + title + '"]');
-    
-    if (modal) {
-        modal.style.display = "block";
-    } else {
-        console.error("Modal element not found with title:", title);
+function openModal(title) {
+    // Ensure title is not undefined
+    if (typeof title === 'undefined') {
+        console.error('Title parameter is undefined');
+        return;
     }
+
+    // Get the modal element based on the title
+    var modal = document.getElementById("modal_" + title);
+
+    // Check if the modal element exists
+    if (!modal) {
+        console.error('Modal element not found with title: ' + title);
+        return;
+    }
+
+    // Display the modal
+    modal.style.display = "block";
 }
+
 
 // Function to close modal
 function closeModal(element) {

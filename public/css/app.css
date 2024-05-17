@@ -91,7 +91,14 @@ body::-webkit-scrollbar {
             width: 400px;
             height: 400px;
             border-radius: 5%;
+            transition: filter 0.3s ease;
+        
+            &:hover {
+                cursor: pointer;
+                filter: drop-shadow(10px 10px 10px #000000);
+            }
         }
+        
 
         .attraction-text {
             width: 400px;
@@ -99,6 +106,12 @@ body::-webkit-scrollbar {
 
             h1 {
                 margin-bottom: 3vh;
+                transition: filter 0.3s ease;
+        
+                &:hover {
+                    cursor: pointer;
+                    filter: drop-shadow(3px 3px 10px #000000);
+                }
             }
 
             p {

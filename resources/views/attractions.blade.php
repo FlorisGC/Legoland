@@ -4,17 +4,21 @@
     <div class="attractions">
         @foreach ($attractions as $attraction)
             <div class="attraction">
-                <img src="{{ htmlspecialchars($attraction->image, ENT_QUOTES, 'UTF-8') }}"
-                    alt="{{ htmlspecialchars($attraction->title, ENT_QUOTES, 'UTF-8') }}" onclick="openModal(this)">
+                <!-- Clickable container for image and title -->
+                <div onclick="openModal('{{ $attraction->title }}')">
+                    <img src="{{ htmlspecialchars($attraction->image, ENT_QUOTES, 'UTF-8') }}"
+                        alt="{{ htmlspecialchars($attraction->title, ENT_QUOTES, 'UTF-8') }}">
+                </div>
 
+                <!-- Description and other content -->
                 <div class="attraction-text">
-                    <h1>{{ $attraction->title }}</h1>
+                    <h1 onclick="openModal('{{ $attraction->title }}')">{{ $attraction->title }}</h1>
                     <p>{{ $attraction->description }}</p>
                 </div>
             </div>
 
             <!-- Modal for this attraction -->
-            <div class="modal" data-title="{{ $attraction->title }}">
+            <div class="modal" id="modal_{{ $attraction->title }}" data-title="{{ $attraction->title }}">
                 <span class="close" onclick="closeModal(this)">&times;</span>
                 <img class="modal-content" src="{{ htmlspecialchars($attraction->image, ENT_QUOTES, 'UTF-8') }}"
                     alt="{{ htmlspecialchars($attraction->title, ENT_QUOTES, 'UTF-8') }}">
