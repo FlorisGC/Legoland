@@ -11,7 +11,13 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/attractions', [AttractionsController::class, 'index'])->name('attractions');
+
 Route::get('/opening-hours', [OpeningHoursController::class, 'index'])->name('opening-hours');
+Route::middleware('auth')->group(function () {
+    Route::get('/opening-hours/{id}/edit', [OpeningHoursController::class, 'edit'])->name('opening-hours.edit');
+    Route::post('/opening-hours/{id}', [OpeningHoursController::class, 'update'])->name('opening-hours.update');
+});
+
 Route::get('/ticket-prices', [TicketPricesController::class, 'index'])->name('ticket-prices');
 Route::post('/place-order', [TicketPricesController::class, 'placeOrder'])->name('placeOrder');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
