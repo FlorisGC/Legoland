@@ -82,18 +82,13 @@ class TicketPricesController extends Controller
 
     public function destroy($id)
     {
-        try {
-            $ticket = Ticket::findOrFail($id);
+        $ticket = Ticket::findOrFail($id);
             
-            if (Auth::check()) {
-                $ticket->delete();
-                return response()->json(['success' => true, 'message' => 'Ticket deleted successfully.']);
-            } else {
-                return response()->json(['success' => false, 'message' => 'You must be logged in to delete tickets.'], 403);
-            }
-        } catch (\Exception $e) {
-            \Log::error('Error deleting ticket: ' . $e->getMessage());
-            return response()->json(['success' => false, 'message' => 'An error occurred while trying to delete the ticket.'], 500);
+        if (Auth::check()) {
+            $ticket->delete();
+            return response()->json(['success' => true, 'message' => 'Ticket deleted successfully.']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'You must be logged in to delete tickets.'], 403);
         }
     }
 }
