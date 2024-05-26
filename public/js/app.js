@@ -1,58 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="tickets">
-    <div class="ticket-prices">
-        <h1>Ticket Prices</h1>
-        @foreach ($tickets as $ticket)
-        <div class="ticket" data-id="{{ $ticket->id }}">
-            <h3>{{ $ticket->type }}</h3>
-            <p class="price">Price: €{{ $ticket->price }}</p>
-            @if ($isAuthenticated)
-            <button class="edit-button">Edit</button>
-            <button class="delete-button">Delete</button>
-            @endif
-        </div>
-        @endforeach
-        @if ($isAuthenticated)
-        <div id="new-ticket" style="display: none;">
-            <h3>Add New Ticket</h3>
-            <input type="text" id="new-type" placeholder="Type">
-            <input type="number" id="new-price" placeholder="Price">
-            <button id="add-button">Add</button>
-        </div>
-        <button id="show-new-ticket">Add New Ticket</button>
-        @endif
-    </div>
-    <div class="order">
-        <h1>Order</h1>
-        <form method="POST" action="{{ route('placeOrder') }}">
-            @csrf
-            <div class="email-order-container">
-                <label>Email:</label>
-                <input type="email" name="email" required>
-            </div>
-            @foreach ($tickets as $ticket)
-            <div class="ticket-order-container">
-                <label>{{ $ticket->type }}:</label>
-                <input type="number" name="tickets[{{ $ticket->id }}]" min="0" required>
-            </div>
-            @endforeach
-            <button type="submit">Order</button>
-        </form>
-        @if (session('message'))
-        <div class="alert">
-            {{ session('message') }}
-        </div>
-        @endif
-    </div>
-</div>
-@endsection
-
-@push('scripts')
-<script>
 document.addEventListener('DOMContentLoaded', function () {
-    @if ($isAuthenticated)
     // Show/hide new ticket form
     document.getElementById('show-new-ticket').addEventListener('click', function () {
         document.getElementById('new-ticket').style.display = 'block';
@@ -79,24 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 throw new Error('Network response was not ok.');
             }).then(data => {
-                // Add new ticket to DOM
-                var newTicket = document.createElement('div');
-                newTicket.className = 'ticket';
-                newTicket.setAttribute('data-id', data.id);
-                newTicket.innerHTML = `
-                    <h3>${data.type}</h3>
-                    <p class="price">Price: €${data.price}</p>
-                    <button class="edit-button">Edit</button>
-                    <button class="delete-button">Delete</button>
-                `;
-                document.querySelector('.ticket-prices').insertBefore(newTicket, document.getElementById('new-ticket'));
-                // Clear form inputs
-                document.getElementById('new-type').value = '';
-                document.getElementById('new-price').value = '';
-                // Hide new ticket form
-                document.getElementById('new-ticket').style.display = 'none';
-                // Re-attach event listeners for the new buttons
-                attachEventListeners();
+                // Refresh the page to update the ticket list
+                window.location.reload();
             }).catch(error => {
                 console.error('There was a problem with your fetch operation:', error);
             });
@@ -131,8 +61,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         throw new Error('Network response was not ok.');
                     }).then(data => {
                         if (data.success) {
-                            ticket.querySelector('h3').textContent = newType;
-                            ticket.querySelector('.price').textContent = `Price: €${newPrice}`;
+                            // Refresh the page to update the ticket list
+                            window.location.reload();
                         } else {
                             alert(data.message);
                         }
@@ -156,7 +86,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     }).then(response => {
                         if (response.ok) {
-                            ticket.remove();
+                            // Refresh the page to update the ticket list
+                            window.location.reload();
                         } else {
                             throw new Error('Network response was not ok.');
                         }
@@ -169,7 +100,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     attachEventListeners(); // Attach event listeners on initial load
-    @endif
 });
-</script>
-@endpush
