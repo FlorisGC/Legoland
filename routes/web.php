@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/attractions', [AttractionsController::class, 'index'])->name('attractions');
 
+Route::delete('/attractions/{id}', [AttractionsController::class, 'destroy'])->name('attractions.destroy');
+
+
 Route::get('/opening-hours', [OpeningHoursController::class, 'index'])->name('opening-hours');
 Route::middleware('auth')->group(function () {
     Route::get('/opening-hours/{id}/edit', [OpeningHoursController::class, 'edit'])->name('opening-hours.edit');

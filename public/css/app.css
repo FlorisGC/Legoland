@@ -77,6 +77,20 @@ body::-webkit-scrollbar {
     }
 }
 
+.attraction-admin-button {
+    padding: 10px 20px;
+    margin-bottom: 2vh;
+    background-color: #9500b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.attraction-admin-button:hover {
+    background-color: #3c0048;
+}
+
 .attractions {
     width: min-content;
     background-color: white;
