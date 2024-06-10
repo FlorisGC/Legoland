@@ -6,6 +6,14 @@
     <p>Address: Catarinalaan 20</p>
     <p>Phone: 0612345678</p>
 
+    @if (session('status'))
+        <div class="alert alert-success">
+            <p>
+                {{ session('status') }}
+            </p>
+        </div>
+    @endif
+
     <form action="/contact" method="post">
         @csrf
         <h2>Send us a message</h2>
