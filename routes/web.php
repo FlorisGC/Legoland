@@ -8,9 +8,6 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\TicketPricesController;
 use Illuminate\Support\Facades\Route;
 
-
-
-
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/attractions', [AttractionsController::class, 'index'])->name('attractions');
 
@@ -34,11 +31,19 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/ticket-prices/{id}', [TicketPricesController::class, 'destroy'])->name('ticket-prices.destroy');
 });
 
-
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
 Route::get('/accommodations', [AccommodationController::class, 'index'])->name('accommodations');
 Route::post('/place-accommodation-order', [AccommodationController::class, 'placeAccommodationOrder'])->name('placeAccommodationOrder');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/accommodations/create', [AccommodationController::class, 'create'])->name('accommodations.create');
+    Route::post('/accommodations', [AccommodationController::class, 'store'])->name('accommodations.store');
+    Route::get('/accommodations/{id}/edit', [AccommodationController::class, 'edit'])->name('accommodations.edit');
+    Route::put('/accommodations/{id}', [AccommodationController::class, 'update'])->name('accommodations.update');
+    Route::delete('/accommodations/{id}', [AccommodationController::class, 'destroy'])->name('accommodations.destroy');
+});
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);

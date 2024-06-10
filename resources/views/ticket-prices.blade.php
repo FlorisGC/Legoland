@@ -9,17 +9,17 @@
             <h3>{{ $ticket->type }}</h3>
             <p class="price">Price: €{{ $ticket->price }}</p>
             @if ($isAuthenticated)
-            <button class="edit-button">Edit</button>
-            <button class="delete-button">Delete</button>
+            <button class="edit-ticket-button">Edit</button>
+            <button class="delete-ticket-button">Delete</button>
             @endif
         </div>
         @endforeach
         @if ($isAuthenticated)
         <div id="new-ticket" style="display: none;">
             <h3>Add New Ticket</h3>
-            <input type="text" id="new-type" placeholder="Type">
-            <input type="number" id="new-price" placeholder="Price">
-            <button id="add-button">Add</button>
+            <input type="text" id="new-ticket-type" placeholder="Type">
+            <input type="number" id="new-ticket-price" placeholder="Price">
+            <button id="add-ticket-button">Add</button>
         </div>
         <button id="show-new-ticket">Add New Ticket</button>
         @endif
@@ -59,9 +59,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Add new ticket
-    document.getElementById('add-button').addEventListener('click', function () {
-        var type = document.getElementById('new-type').value;
-        var price = document.getElementById('new-price').value;
+    document.getElementById('add-ticket-button').addEventListener('click', function () {
+        var type = document.getElementById('new-ticket-type').value;
+        var price = document.getElementById('new-ticket-price').value;
         if (type && price) {
             fetch("/ticket-prices", {
                 method: 'POST',
@@ -86,13 +86,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 newTicket.innerHTML = `
                     <h3>${data.type}</h3>
                     <p class="price">Price: €${data.price}</p>
-                    <button class="edit-button">Edit</button>
-                    <button class="delete-button">Delete</button>
+                    <button class="edit-ticket-button">Edit</button>
+                    <button class="delete-ticket-button">Delete</button>
                 `;
                 document.querySelector('.ticket-prices').insertBefore(newTicket, document.getElementById('new-ticket'));
                 // Clear form inputs
-                document.getElementById('new-type').value = '';
-                document.getElementById('new-price').value = '';
+                document.getElementById('new-ticket-type').value = '';
+                document.getElementById('new-ticket-price').value = '';
                 // Hide new ticket form
                 document.getElementById('new-ticket').style.display = 'none';
                 // Re-attach event listeners for the new buttons
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function attachEventListeners() {
         // Edit ticket
-        document.querySelectorAll('.edit-button').forEach(function (button) {
+        document.querySelectorAll('.edit-ticket-button').forEach(function (button) {
             button.addEventListener('click', function () {
                 var ticket = button.closest('.ticket');
                 var id = ticket.getAttribute('data-id');
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // Delete ticket
-        document.querySelectorAll('.delete-button').forEach(function (button) {
+        document.querySelectorAll('.delete-ticket-button').forEach(function (button) {
             button.addEventListener('click', function () {
                 if (confirm('Are you sure you want to delete this ticket?')) {
                     var ticket = button.closest('.ticket');
