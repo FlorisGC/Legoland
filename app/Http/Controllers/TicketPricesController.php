@@ -1,10 +1,11 @@
-<?php 
+<?php
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 class TicketPricesController extends Controller
 {
     public function index()
@@ -13,7 +14,8 @@ class TicketPricesController extends Controller
         $isAuthenticated = Auth::check();
         return view('ticket-prices', ['tickets' => $tickets, 'isAuthenticated' => $isAuthenticated]);
     }
-    
+
+
 
     public function placeOrder(Request $request)
     {
@@ -27,12 +29,25 @@ class TicketPricesController extends Controller
             return back()->with('message', 'Please order at least one ticket');
         }
 
+        $totalPrice = 0;
+        $ticketDetails = [];
+        foreach ($request->tickets as $ticketId => $quantity) {
+            $ticket = Ticket::find($ticketId);
+            $totalPrice += $ticket->price * $quantity;
+            $ticketType = $ticket->type;
+            $ticketDetails[] = "Ticket: $ticketType, amount: $quantity, price: €" . $ticket->price * $quantity;
+        }
+
         $order = new Order;
         $order->email = $request->email;
         $order->tickets = json_encode($request->tickets);
         $order->save();
 
-        return back()->with('message', 'Order placed successfully!');
+        return back()->with([
+            'message' => 'Order placed successfully!',
+            'totalPrice' => $totalPrice,
+            'ticketDetails' => $ticketDetails,
+        ]);
     }
 
     public function create()
@@ -55,7 +70,7 @@ class TicketPricesController extends Controller
     public function edit($id)
     {
         $ticket = Ticket::findOrFail($id);
-        
+
         if (Auth::check()) {
             return view('tickets.edit', compact('ticket'));
         } else {
@@ -71,7 +86,7 @@ class TicketPricesController extends Controller
         ]);
 
         $ticket = Ticket::findOrFail($id);
-        
+
         if (Auth::check()) {
             $ticket->update($request->all());
             return response()->json(['success' => true, 'message' => 'Ticket updated successfully.']);
@@ -83,7 +98,7 @@ class TicketPricesController extends Controller
     public function destroy($id)
     {
         $ticket = Ticket::findOrFail($id);
-            
+
         if (Auth::check()) {
             $ticket->delete();
             return response()->json(['success' => true, 'message' => 'Ticket deleted successfully.']);
