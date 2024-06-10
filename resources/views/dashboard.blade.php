@@ -16,26 +16,50 @@
         </form>
     </div>
 
+    <div class="change-password">
+        <h3>Change your password</h3>
+        <form method="POST" action="{{ route('dashboard.changepassword') }}">
+            @csrf
+            <div>
+                <label for="current_password">Current Password</label>
+                <input id="current_password" type="password" name="current_password" required>
+            </div>
+            <div>
+                <label for="password">New Password</label>
+                <input id="password" type="password" name="password" required>
+            </div>
+            <div>
+                <label for="password_confirmation">Confirm New Password</label>
+                <input id="password_confirmation" type="password" name="password_confirmation" required>
+            </div>
+            <button type="submit">Change Password</button>
+        </form>
+    </div>
+
+    <br>
+    @if (session('success'))
+        <div class="success-container">
+            <ul>
+                <li>
+                    {{ session('success') }}
+                </li>
+            </ul>
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="error-container">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <br>
+
     <div class="register-user">
         <h3>Register a new user</h3>
-        @if (session('success'))
-            <div class="success-container">
-                <ul>
-                    <li>
-                        {{ session('success') }}
-                    </li>
-                </ul>
-            </div>
-        @endif
-        @if ($errors->any())
-            <div class="error-container">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+
         <form method="POST" action="{{ route('dashboard.register') }}">
             @csrf
 
@@ -99,4 +123,6 @@
         </ul>
     </div>
 </div>
+
+<br>
 @endsection

@@ -546,6 +546,20 @@ body::-webkit-scrollbar {
     width: 60%;
     margin: 0 auto;
     font-family: Arial, sans-serif;
+
+    .alert {
+        margin-top: 20px;
+        padding: 10px;
+        text-align: center;
+        border: 1px solid;
+        border-radius: 3px;
+    }
+
+    .alert-success {
+        background-color: #ffffff;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
 }
 
 .user-list {
@@ -666,6 +680,65 @@ body::-webkit-scrollbar {
     }
 }
 
+.change-password {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.change-password h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.change-password div {
+    margin-bottom: 10px;
+}
+
+.change-password label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.change-password input[type="password"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.change-password button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.change-password button:hover {
+    background-color: #0056b3;
+}
+
+.error-container {
+    padding-bottom: 1vh;
+    li {
+        color: red;
+    }
+}
+
+.success-container {
+    justify-content: center;
+    padding-bottom: 1vh;
+    li {
+        color: green;
+    }
+}
+
 .register-user {
     padding: 25px;
     background-color: #f9f9f9;
@@ -677,20 +750,6 @@ body::-webkit-scrollbar {
         text-align: center;
         color: #333;
         margin-bottom: 20px;
-    }
-
-    .error-container {
-        padding-bottom: 1vh;
-        li {
-            color: red;
-        }
-    }
-
-    .success-container {
-        padding-bottom: 1vh;
-        li {
-            color: green;
-        }
     }
 
     div {

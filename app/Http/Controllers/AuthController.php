@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -68,6 +69,7 @@ class AuthController extends Controller
 
         if (Auth::check()) {
             $user->delete();
+            session()->flash('status', 'User deleted successfully');
             return redirect('/dashboard');
         } else {
             return response()->json(['success' => false, 'message' => 'You must be logged in to delete users.'], 403);
@@ -91,6 +93,24 @@ class AuthController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'You must be logged in to update users.'], 403);
         }
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        if (!Hash::check($request->current_password, Auth::user()->password)) {
+            return back()->withErrors(['current_password' => 'Current password is incorrect']);
+        }
+
+        Auth::user()->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return back()->with('status', 'Password changed successfully');
     }
 
     public function logout()

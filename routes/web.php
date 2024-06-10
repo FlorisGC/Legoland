@@ -56,3 +56,4 @@ Route::get('/dashboard', function () {
 Route::post('/dashboard/register', [AuthController::class, 'register'])->name('dashboard.register');
 Route::delete('/dashboard/{id}', [AuthController::class, 'destroy'])->name('dashboard.destroy');
 Route::put('/dashboard/{id}', [AuthController::class, 'update'])->name('dashboard.update');
+Route::post('/dashboard/changepassword', [AuthController::class, 'changePassword'])->name('dashboard.changepassword');
