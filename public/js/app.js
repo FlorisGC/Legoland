@@ -5,8 +5,8 @@
 // Function to open modal
 function openModal(title) {
     // Ensure title is not undefined
-    if (typeof title === 'undefined') {
-        console.error('Title parameter is undefined');
+    if (typeof title === "undefined") {
+        console.error("Title parameter is undefined");
         return;
     }
 
@@ -15,7 +15,7 @@ function openModal(title) {
 
     // Check if the modal element exists
     if (!modal) {
-        console.error('Modal element not found with title: ' + title);
+        console.error("Modal element not found with title: " + title);
         return;
     }
 
@@ -25,107 +25,129 @@ function openModal(title) {
 
 // Function to close modal
 function closeModal(element) {
-    var modal = element.closest('.modal');
+    var modal = element.closest(".modal");
     if (modal) {
         modal.style.display = "none";
     }
 }
 
 // Close modal when clicking outside of the modal content
-window.onclick = function(event) {
-    var modals = document.getElementsByClassName('modal');
+window.onclick = function (event) {
+    var modals = document.getElementsByClassName("modal");
     for (var i = 0; i < modals.length; i++) {
         var modal = modals[i];
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
-}
+};
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
     // Tickets system code
-    var showNewTicketButton = document.getElementById('show-new-ticket');
+    var showNewTicketButton = document
+        .getElementById("show-new-ticket")
+        ;
     if (showNewTicketButton) {
-        showNewTicketButton.addEventListener('click', function () {
-            document.getElementById('new-ticket').style.display = 'block';
-        });
+        showNewTicketButton.addEventListener("click", function () {
+                document.getElementById("new-ticket").style.display = "block";
+            });
     }
 
-    var addTicketButton = document.getElementById('add-ticket-button');
+    var addTicketButton = document
+        .getElementById("add-ticket-button")
+        ;
     if (addTicketButton) {
-        addTicketButton.addEventListener('click', function () {
-            var type = document.getElementById('new-ticket-type').value;
-            var price = document.getElementById('new-ticket-price').value;
-            if (type && price) {
-                fetch("/ticket-prices", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        type: type,
-                        price: price
+        addTicketButton.addEventListener("click", function () {
+                var type = document.getElementById("new-ticket-type").value;
+                var price = document.getElementById("new-ticket-price").value;
+                if (type && price) {
+                    fetch("/ticket-prices", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-Token": document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute("content"),
+                        },
+                        body: JSON.stringify({
+                            type: type,
+                            price: price,
+                    }),
                     })
-                }).then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    throw new Error('Network response was not ok.');
-                }).then(data => {
-                    window.location.reload();
-                }).catch(error => {
-                    console.error('There was a problem with your fetch operation:', error);
-                });
-            }
-        });
+                        .then((response) => {
+                            if (response.ok) {
+                                return response.json();
+                            }
+                            throw new Error("Network response was not ok.");
+                        })
+                    .then((data) => {
+                                    window.location.reload();
+                        })
+                    .catch((error) => {
+                            console.error(
+                            "There was a problem with your fetch operation:",
+                            error
+                        );
+                        });
+                }
+            });
     }
 
     function attachTicketEventListeners() {
-        document.querySelectorAll('.edit-ticket-button').forEach(function (button) {
-            button.addEventListener('click', function () {
-                var ticket = button.closest('.ticket');
-                var id = ticket.getAttribute('data-id');
-                var type = ticket.querySelector('h3').textContent;
-                var price = ticket.querySelector('.price').textContent.replace('Price: €', '');
-                var newType = prompt('Edit Type:', type);
-                var newPrice = prompt('Edit Price:', price);
+        document.querySelectorAll(".edit-ticket-button").forEach(function (button) {
+            button.addEventListener("click", function () {
+                var ticket = button.closest(".ticket");
+                var id = ticket.getAttribute("data-id");
+                var type = ticket.querySelector("h3").textContent;
+                var price = ticket
+                    .querySelector(".price")
+                    .textContent.replace("Price: €", "");
+                var newType = prompt("Edit Type:", type);
+                var newPrice = prompt("Edit Price:", price);
                 if (newType && newPrice) {
                     fetch(`/ticket-prices/${id}`, {
-                        method: 'PUT',
+                        method: "PUT",
                         headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            "Content-Type": "application/json",
+                            "X-CSRF-Token": document
+                                .querySelector('meta[name="csrf-token"]')
+                                .getAttribute("content"),
                         },
                         body: JSON.stringify({
                             type: newType,
-                            price: newPrice
+                            price: newPrice,
+                        }),
+                    })
+                        .then((response) => {
+                            if (response.ok) {
+                                return response.json();
+                            }
+                            throw new Error("Network response was not ok.");
                         })
-                    }).then(response => {
-                        if (response.ok) {
-                            return response.json();
-                        }
-                        throw new Error('Network response was not ok.');
-                    }).then(data => {
-                        if (data.success) {
-                            window.location.reload();
-                        } else {
-                            alert(data.message);
-                        }
-                    }).catch(error => {
-                        console.error('There was a problem with your fetch operation:', error);
-                    });
+                        .then((data) => {
+                            if (data.success) {
+                                    window.location.reload();
+                            } else {
+                                alert(data.message);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error(
+                                "There was a problem with your fetch operation:",
+                                error
+                            );
+                        });
                 }
             });
         });
 
-        document.querySelectorAll('.delete-ticket-button').forEach(function (button) {
-            button.addEventListener('click', function () {
-                if (confirm('Are you sure you want to delete this ticket?')) {
-                    var ticket = button.closest('.ticket');
-                    var id = ticket.getAttribute('data-id');
+        document.querySelectorAll(".delete-ticket-button").forEach(function (button) {
+            button.addEventListener("click", function () {
+                if (confirm("Are you sure you want to delete this ticket?")) {
+                    var ticket = button.closest(".ticket");
+                    var id = ticket.getAttribute("data-id");
                     fetch(`/ticket-prices/${id}`, {
-                        method: 'DELETE',
+                        method: "DELETE",
                         headers: {
                             'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                         }
@@ -252,3 +274,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     attachAccommodationEventListeners(); // Attach event listeners on initial load
 });
+
+const editButton = document.querySelector(".edit-user");
+editButton.addEventListener("click", function () {
+    console.log("clicked");
+    const userEditForms = document.querySelectorAll(".user-edit-form");
+    userEditForms.forEach((form) => {
+        form.classList.toggle("hidden");
+    });
+});
+

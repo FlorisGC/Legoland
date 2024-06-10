@@ -548,6 +548,100 @@ body::-webkit-scrollbar {
     font-family: Arial, sans-serif;
 }
 
+.user-list {
+    background-color: #3c0048;
+    color: white;
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+    margin-top: 3vh;
+
+    button {
+        padding: 10px 20px;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 5vw;
+    }
+
+    .user-list-title-and-edit-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 3vh;
+    }
+
+    .edit-user {
+        background-color: #09ff00;
+    }
+    .edit-user:hover {
+        background-color: #00b30c;
+    }
+    .delete-user {
+        background-color: #ff0000;
+    }
+    .delete-user:hover {
+        background-color: #b30000;
+    }
+}
+
+.user-info {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.user-edit-form {
+    padding-top: 1vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+        background-color: #9500b3;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #3c0048;
+    }
+}
+
+.user-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+}
+
+.user-list h3 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.user-list li {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
 .welcome {
     text-align: center;
     margin-bottom: 6vh;
@@ -629,4 +723,8 @@ body::-webkit-scrollbar {
     button:hover {
         background-color: #0056b3;
     }
+}
+
+.hidden {
+    display: none;
 }

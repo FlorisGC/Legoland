@@ -62,6 +62,37 @@ class AuthController extends Controller
         return redirect('/dashboard');
     }
 
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        if (Auth::check()) {
+            $user->delete();
+            return redirect('/dashboard');
+        } else {
+            return response()->json(['success' => false, 'message' => 'You must be logged in to delete users.'], 403);
+        }
+
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        if (Auth::check()) {
+            $user->update($request->all());
+            $request->session()->flash('status', 'User updated successfully');
+            return redirect('/dashboard');
+        } else {
+            return response()->json(['success' => false, 'message' => 'You must be logged in to update users.'], 403);
+        }
+    }
+
     public function logout()
     {
         Auth::logout();
