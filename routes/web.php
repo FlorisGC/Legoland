@@ -11,8 +11,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/attractions', [AttractionsController::class, 'index'])->name('attractions');
 
-Route::delete('/attractions/{id}', [AttractionsController::class, 'destroy'])->name('attractions.destroy');
-
+Route::middleware('auth')->group(function () {
+    Route::get('/attractions/create', [AttractionsController::class, 'create'])->name('attractions.create');
+    Route::post('/attractions', [AttractionsController::class, 'store'])->name('attractions.store');
+    Route::get('/attractions/{id}/edit', [AttractionsController::class, 'edit'])->name('attractions.edit');
+    Route::put('/attractions/{id}', [AttractionsController::class, 'update'])->name('attractions.update');
+    Route::delete('/attractions/{id}', [AttractionsController::class, 'destroy'])->name('attractions.destroy');
+});
 
 Route::get('/opening-hours', [OpeningHoursController::class, 'index'])->name('opening-hours');
 Route::middleware('auth')->group(function () {
