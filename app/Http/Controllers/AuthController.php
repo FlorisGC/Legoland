@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -60,6 +61,56 @@ class AuthController extends Controller
         $request->session()->flash('success', 'User created');
 
         return redirect('/dashboard');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        if (Auth::check()) {
+            $user->delete();
+            session()->flash('status', 'User deleted successfully');
+            return redirect('/dashboard');
+        } else {
+            return response()->json(['success' => false, 'message' => 'You must be logged in to delete users.'], 403);
+        }
+
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        if (Auth::check()) {
+            $user->update($request->all());
+            $request->session()->flash('status', 'User updated successfully');
+            return redirect('/dashboard');
+        } else {
+            return response()->json(['success' => false, 'message' => 'You must be logged in to update users.'], 403);
+        }
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        if (!Hash::check($request->current_password, Auth::user()->password)) {
+            return back()->withErrors(['current_password' => 'Current password is incorrect']);
+        }
+
+        Auth::user()->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return back()->with('status', 'Password changed successfully');
     }
 
     public function logout()

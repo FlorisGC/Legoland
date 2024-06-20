@@ -50,6 +50,10 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $users = \App\Models\User::all();
+    return view('dashboard', compact('users'));
 })->name('dashboard')->middleware('auth');
 Route::post('/dashboard/register', [AuthController::class, 'register'])->name('dashboard.register');
+Route::delete('/dashboard/{id}', [AuthController::class, 'destroy'])->name('dashboard.destroy');
+Route::put('/dashboard/{id}', [AuthController::class, 'update'])->name('dashboard.update');
+Route::post('/dashboard/changepassword', [AuthController::class, 'changePassword'])->name('dashboard.changepassword');
