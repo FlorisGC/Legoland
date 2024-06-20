@@ -26,6 +26,6 @@ class ContactController extends Controller
 
         $contact->save();
 
-        return back()->with('success', 'Thanks for contacting us!');
+        return back()->with('status', 'Thanks for contacting us!');
     }
 }
