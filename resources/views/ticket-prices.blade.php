@@ -9,8 +9,8 @@
                     <h3>{{ $ticket->type }}</h3>
                     <p class="price">Price: €{{ $ticket->price }}</p>
                     @if ($isAuthenticated)
-                            <button class="edit-ticket-button">Edit</button>
-                            <button class="delete-ticket-button">Delete</button>
+                            <button class="edit-ticket-button btn btn-secondary attraction-admin-button">Edit</button>
+                            <button class="delete-ticket-button btn btn-secondary attraction-admin-button">Delete</button>
                     @endif
                 </div>
         @endforeach
@@ -21,7 +21,7 @@
                     <input type="number" id="new-ticket-price" placeholder="Price">
                     <button id="add-ticket-button">Add</button>
                 </div>
-                <button id="show-new-ticket">Add New Ticket</button>
+                <button id="show-new-ticket" class="btn btn-primary attraction-admin-button">Add New Ticket</button>
         @endif
     </div>
     <div class="order">
