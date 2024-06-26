@@ -21,7 +21,7 @@
                 @if (Auth::check())
                     <br>
                     <a href="{{ route('attractions.edit', $attraction->id) }}" class="btn btn-secondary attraction-admin-button">Edit</a>
-                    <br>
+                    <br> <br>
                     <h3>
                         <form action="{{ route('attractions.destroy', $attraction->id) }}" method="POST">
                             @csrf

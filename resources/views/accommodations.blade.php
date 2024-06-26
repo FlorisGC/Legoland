@@ -13,8 +13,8 @@
         <h2>{{ $accommodation->type }}</h2>
         <p>Price per night: €{{ $accommodation->price_per_night }}</p>
         @if ($isAuthenticated)
-        <button class="edit-accommodation-button">Edit</button>
-        <button class="delete-accommodation-button">Delete</button>
+        <button class="edit-accommodation-button btn btn-secondary attraction-admin-button">Edit</button>
+        <button class="delete-accommodation-button btn btn-secondary attraction-admin-button">Delete</button>
         @endif
         <form action="{{ route('placeAccommodationOrder') }}" method="POST">
             @csrf
@@ -33,7 +33,7 @@
         <input type="text" id="new-accommodation-image" placeholder="Image URL">
         <button id="add-accommodation-button">Add</button>
     </div>
-    <button id="show-new-accommodation">Add New Accommodation</button>
+    <button id="show-new-accommodation" class="btn btn-primary attraction-admin-button">Add New Accommodation</button>
     @endif
 </div>
 @endsection

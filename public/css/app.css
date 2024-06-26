@@ -96,7 +96,12 @@ body::-webkit-scrollbar {
     background-color: white;
     padding: 3vh;
     margin-left: 11vw;
+
+    a{
+        margin-bottom: 30px;
+    }
     .attraction {
+        margin-top: 30px;
         display: flex;
         align-items: center;
         margin-bottom: 6vh;
